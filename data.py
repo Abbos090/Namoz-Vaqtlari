@@ -1,13 +1,87 @@
 # -*- coding: utf-8 -*-
 """
 Bot uchun statik ma'lumotlar:
-- Viloyatlar ro'yxati (API'ga yuboriladigan nom)
+- Davlatlar ro'yxati
+- Viloyatlar ro'yxati (O'zbekiston, API'ga yuboriladigan nom)
+- Boshqa davlatlar uchun yirik shaharlar ro'yxati (AlAdhan API uchun)
 - Toshkentga nisbatan vaqt farqlari (daqiqada)
 - Oy va hafta kunlari nomlari (lotin alifbosida)
 """
 
 # ------------------------------------------------------------------
-# Viloyatlar ro'yxati: (foydalanuvchiga ko'rinadigan nom, API parametri)
+# Davlatlar ro'yxati: (foydalanuvchiga ko'rinadigan nom, ichki kod)
+# ------------------------------------------------------------------
+COUNTRIES = [
+    ("🇺🇿 O'zbekiston", "UZ"),
+    ("🇰🇿 Qozog'iston", "KZ"),
+    ("🇰🇬 Qirg'iziston", "KG"),
+    ("🇹🇯 Tojikiston", "TJ"),
+    ("🇹🇲 Turkmaniston", "TM"),
+    ("🇦🇫 Afg'oniston", "AF"),
+    ("🇷🇺 Rossiya", "RU"),
+]
+
+COUNTRY_NAME_MAP = {code: name for name, code in COUNTRIES}
+
+# AlAdhan API'ga yuboriladigan `country` parametri (inglizcha nom)
+COUNTRY_API_NAME = {
+    "KZ": "Kazakhstan",
+    "KG": "Kyrgyzstan",
+    "TJ": "Tajikistan",
+    "TM": "Turkmenistan",
+    "AF": "Afghanistan",
+    "RU": "Russia",
+}
+
+# O'zbekistondan tashqari har bir davlat uchun yirik shaharlar:
+# (foydalanuvchiga ko'rinadigan nom, AlAdhan API'ga yuboriladigan shahar nomi)
+INTL_CITIES = {
+    "KZ": [
+        ("Nur-Sultan (Ostona)", "Astana"),
+        ("Almati", "Almaty"),
+        ("Shimkent", "Shymkent"),
+        ("Qarag'andi", "Karaganda"),
+        ("Turkiston", "Turkestan"),
+    ],
+    "KG": [
+        ("Bishkek", "Bishkek"),
+        ("O'sh", "Osh"),
+        ("Jaloqobod", "Jalal-Abad"),
+        ("O'zgan", "Uzgen"),
+    ],
+    "TJ": [
+        ("Dushanbe", "Dushanbe"),
+        ("Xo'jand", "Khujand"),
+        ("Bohtar", "Bokhtar"),
+        ("Kulob", "Kulob"),
+    ],
+    "TM": [
+        ("Ashxobod", "Ashgabat"),
+        ("Turkmanobod", "Turkmenabat"),
+        ("Mari", "Mary"),
+        ("Dashog'uz", "Dashoguz"),
+    ],
+    "AF": [
+        ("Kobul", "Kabul"),
+        ("Hirot", "Herat"),
+        ("Mozori Sharif", "Mazar-i-Sharif"),
+        ("Qandahor", "Kandahar"),
+    ],
+    "RU": [
+        ("Moskva", "Moscow"),
+        ("Qozon", "Kazan"),
+        ("Ufa", "Ufa"),
+        ("Mahachqal'a", "Makhachkala"),
+        ("Grozniy", "Grozny"),
+    ],
+}
+
+# AlAdhan API namoz vaqtini hisoblash usuli (method parametri).
+# 2 = Islamic Society of North America (ISNA)
+INTL_CALC_METHOD = 2
+
+# ------------------------------------------------------------------
+# Viloyatlar ro'yxati (O'zbekiston): (foydalanuvchiga ko'rinadigan nom, API parametri)
 # Agar namozapi.uz boshqacha nom kutsa, faqat ikkinchi elementni o'zgartiring.
 # ------------------------------------------------------------------
 REGIONS = [

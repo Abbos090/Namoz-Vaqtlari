@@ -87,6 +87,7 @@ def build_prayer_message(selected_region: str, data: dict) -> str:
     """
     API'dan kelgan namoz vaqtlari ma'lumotlari asosida to'liq xabarni
     (foydalanuvchi bergan namunadagi formatda, faqat lotin alifbosida) quradi.
+    Bu funksiya faqat O'zbekiston viloyatlari (namozapi.uz) uchun ishlatiladi.
     """
     date_info = get_gregorian_and_hijri()
     label = region_display_label(selected_region)
@@ -105,6 +106,40 @@ def build_prayer_message(selected_region: str, data: dict) -> str:
         f"🌃 XUFTON - {data.get('xufton', '—')} 🕰\n",
         "",
         build_time_diff_lines(selected_region),
+    ]
+
+    return "\n".join(msg_lines)
+
+
+def clean_time(value: str) -> str:
+    """
+    AlAdhan API javobidagi '05:12 (+05)' kabi qiymatdan faqat soat:daqiqa
+    qismini ajratib oladi.
+    """
+    if not value:
+        return "—"
+    return value.split(" ")[0]
+
+
+def build_intl_prayer_message(country_name: str, city_name: str, timings: dict) -> str:
+    """
+    AlAdhan API'dan kelgan namoz vaqtlari ma'lumotlari asosida
+    O'zbekistondan tashqari davlatlar uchun xabarni quradi.
+    """
+    date_info = get_gregorian_and_hijri()
+
+    msg_lines = [
+        "☪️ " + f"{date_info['year']}-yil",
+        "🌺 " + f"{date_info['day']}-{date_info['month_name']}",
+        "🗓 " + date_info["weekday_name"],
+        "🌙 " + f"{date_info['hijri_day']}-{date_info['hijri_month_name']}, {date_info['hijri_year']}\n\n",
+        f"( {city_name}, {country_name} )\n\n",
+        f"🏙 TONG - {clean_time(timings.get('Fajr'))} 🕰\n",
+        f"🌅 QUYOSH - {clean_time(timings.get('Sunrise'))} 🕰\n",
+        f"🏞 PESHIN - {clean_time(timings.get('Dhuhr'))} 🕰\n",
+        f"🌇 ASR - {clean_time(timings.get('Asr'))} 🕰\n",
+        f"🌆 SHOM - {clean_time(timings.get('Maghrib'))} 🕰\n",
+        f"🌃 XUFTON - {clean_time(timings.get('Isha'))} 🕰\n",
     ]
 
     return "\n".join(msg_lines)
