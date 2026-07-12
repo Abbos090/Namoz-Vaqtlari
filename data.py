@@ -48,6 +48,7 @@ INTL_CITIES = {
         ("O'sh", "Osh"),
         ("Jaloqobod", "Jalal-Abad"),
         ("O'zgan", "Uzgen"),
+        ("Issiqko'l (Qorako'l)", "Karakol"),
     ],
     "TJ": [
         ("Dushanbe", "Dushanbe"),
@@ -73,6 +74,7 @@ INTL_CITIES = {
         ("Ufa", "Ufa"),
         ("Mahachqal'a", "Makhachkala"),
         ("Grozniy", "Grozny"),
+        ("Piter (Sankt-Peterburg)", "Saint Petersburg"),
     ],
 }
 
