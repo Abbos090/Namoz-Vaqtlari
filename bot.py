@@ -150,6 +150,16 @@ async def fetch_and_send_prayer_time(
         )
         return
 
+    # namozapi.uz noma'lum hudud uchun ham 200 qaytaradi: {"error": "Region not found"}
+    if "error" in data or "bomdod" not in data:
+        logger.error("namozapi.uz javobida vaqtlar yo'q (%s): %s", api_param, data)
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text="⚠️ Bu hudud uchun namoz vaqtlari topilmadi.",
+            reply_markup=reply_markup,
+        )
+        return
+
     message = build_prayer_message(region_name, data)
     await context.bot.send_message(chat_id=chat_id, text=message, reply_markup=reply_markup)
 

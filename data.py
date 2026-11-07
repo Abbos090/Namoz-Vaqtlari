@@ -85,6 +85,8 @@ INTL_CALC_METHOD = 2
 # ------------------------------------------------------------------
 # Viloyatlar ro'yxati (O'zbekiston): (foydalanuvchiga ko'rinadigan nom, API parametri)
 # Agar namozapi.uz boshqacha nom kutsa, faqat ikkinchi elementni o'zgartiring.
+# namozapi.uz faqat shahar nomlarini qabul qiladi (ro'yxat: /regions), shuning
+# uchun ayrim viloyatlar markaziy shahri orqali so'raladi.
 # ------------------------------------------------------------------
 REGIONS = [
     ("Toshkent shahri", "Toshkent"),
@@ -93,14 +95,14 @@ REGIONS = [
     ("Buxoro", "Buxoro"),
     ("Farg'ona", "Fargona"),
     ("Jizzax", "Jizzax"),
-    ("Xorazm", "Xorazm"),
+    ("Xorazm", "Xiva"),
     ("Namangan", "Namangan"),
     ("Navoiy", "Navoiy"),
-    ("Qashqadaryo", "Qashqadaryo"),
-    ("Qoraqalpog'iston", "Qoraqalpogiston"),
+    ("Qashqadaryo", "Qarshi"),
+    ("Qoraqalpog'iston", "Nukus"),
     ("Samarqand", "Samarqand"),
-    ("Sirdaryo", "Sirdaryo"),
-    ("Surxondaryo", "Surxondaryo"),
+    ("Sirdaryo", "Guliston"),
+    ("Surxondaryo", "Termiz"),
 ]
 
 # Ko'rinadigan nomdan API parametrini topish uchun tezkor lug'at
